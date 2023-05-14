@@ -39,12 +39,12 @@ jobs:
           name: artifacts
           path: target/*.jar
     - name: Build and cloudhub deployment
-      run: mvn clean package deploy -DskipMunitTests -DmuleDeploy -Dusername= mule5preperation -Dpassword= Mule@1998 
-#       env:
-#         USERNAME: ${{ secrets.anypoint_platform_username }}
-#         PASSWORD: ${{ secrets.anypoint_platform_password }}
+      run: mvn clean package deploy -DskipMunitTests -DmuleDeploy -Dusername=mule5preperation -Dpassword=Mule@1998 
+      env:
+        USERNAME: "mule5preperation"
+        PASSWORD: "Mule@1998"
 #         KEY: ${{ secrets.decryption_key }}
-#      run: mvn clean package deploy -DskipMunitTests -DmuleDeploy -Dusername= mule5preperation -Dpassword= Mule@1998 
+#      run: mvn clean package deploy -DskipMunitTests -DmuleDeploy -Dusername=mule5preperation -Dpassword=Mule@1998 
 #          -Dkey="$KEY"      
         
 #   deploy:

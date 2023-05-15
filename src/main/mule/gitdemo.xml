@@ -10,14 +10,28 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	</http:listener-config>
 	<flow name="gitdemoFlow" doc:id="ea0a28f0-5e05-4944-9c77-7d3dfef7522a" >
 		<http:listener doc:name="Listener" doc:id="e3ea4888-74c2-400b-a267-d69cfeca3f6d" config-ref="HTTP_Listener_config" path="/git"/>
-		<ee:transform doc:name="Transform Message" doc:id="a9a2a845-1d38-4832-828e-6aa0e147f0ae" >
-			<ee:message >
-				<ee:set-payload ><![CDATA[%dw 2.0
+		<choice doc:name="Choice" doc:id="2e8c0864-673c-4a34-af51-6c0a919faefe" >
+			<when expression="#[!isEmpty(payload)]">
+				<ee:transform doc:name="Transform Message" doc:id="a9a2a845-1d38-4832-828e-6aa0e147f0ae">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
+			</when>
+			<otherwise >
+				<ee:transform doc:name="Transform Message" doc:id="de9094b3-3225-4025-82d9-54b4e8d26b5e" >
+					<ee:message >
+						<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+"no payload"]]></ee:set-payload>
+					</ee:message>
+				</ee:transform>
+			</otherwise>
+		</choice>
 		<logger level="INFO" doc:name="Logger" doc:id="ea931202-b477-4f37-933a-3cb0cabd9818" />
 	</flow>
 </mule>
